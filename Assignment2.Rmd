@@ -12,7 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #Load Packages 
 
+library(tidyverse)
 
+#Read in data
+
+gas <- read_csv("Gas_Data.csv")
 
 ```
 
@@ -22,6 +26,52 @@ quo? What is the “benefit” to producers under the status quo? What is the
 environmental cost under the status quo?
 
 ```{r}
+#y = mx + b -> P = mQ + b
+#Demand curve for High:
+High <- lm(Price_Dollars ~ Q_High_Gallons_per_Day, data = gas)
+summary(High)
+bH <- High$coefficients[1] #intercept
+mH <- High$coefficients[2] #slope
+
+#Demand curve for Low: 
+Low <- lm(Price_Dollars ~ Q_Low_Gallons_per_Day, data = gas)
+summary(Low)
+bL <- Low$coefficients[1] #intercept
+mL <- Low$coefficients[2] #slope
+
+#High demand in terms of quantity (Q)
+Q_high1 <- 1/mH
+Q_high2 <- bH/mH
+
+#Low demand in terms of quantity (Q)
+Q_low1 <- 1/mL
+Q_low2 <- bL/mL
+
+#Aggregate in terms of Q (because its in terms of Q we're adding horizontally)
+Q_agg1 <- Q_high1 + Q_low1
+Q_agg2 <- Q_high2 + Q_low2
+
+#Aggregate in terms of price (P)
+P_agg1 <- 1/Q_agg1
+P_agg2 <- Q_agg2/Q_agg1
+
+#Demand Curves
+demand_h <- function(q) {mH*q + bH}
+demand_l <- function(q) {mL*q + bL}
+demand_agg<- function(q) {P_agg1*q + P_agg2} 
+
+#Calculate supply curve
+Q_equil <- 5*Q_agg1 - Q_agg2 #Get quantity at equilibrium, P = 5 (given)
+supp_slope <- 5/Q_equil #Get slope of supply curve, no b since intercept is 0
+
+#Supply curve 
+supply <- function(q) {supp_slope*q}
+
+#Marginal environmental cost curve
+mec <- function(q) {q*0 + 2} #since it's a flat line
+
+###Need to graph next...calculate areas (integrate? or triangles)
+
 
 ```
 
