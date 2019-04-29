@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 
 #Read in data
+#Natalie tidied in Excel
 
 gas <- read_csv("Gas_Data.csv")
 
@@ -28,13 +29,13 @@ environmental cost under the status quo?
 ```{r}
 #y = mx + b -> P = mQ + b
 #Demand curve for High:
-High <- lm(Price_Dollars ~ Q_High_Gallons_per_Day, data = gas)
+High <- lm(price ~ high, data = gas)
 summary(High)
 bH <- High$coefficients[1] #intercept
 mH <- High$coefficients[2] #slope
 
 #Demand curve for Low: 
-Low <- lm(Price_Dollars ~ Q_Low_Gallons_per_Day, data = gas)
+Low <- lm(price ~ low, data = gas)
 summary(Low)
 bL <- Low$coefficients[1] #intercept
 mL <- Low$coefficients[2] #slope
@@ -71,6 +72,8 @@ supply <- function(q) {supp_slope*q}
 mec <- function(q) {q*0 + 2} #since it's a flat line
 
 ###Need to graph next...calculate areas (integrate? or triangles)
+
+
 
 
 ```
