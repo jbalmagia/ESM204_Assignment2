@@ -174,7 +174,7 @@ height_low_tax <- bL - price_tax
 cs_low_tax <- base_low_tax * height_low_tax * 0.5
 cs_low_tax
 
-#d). PS
+#e). PS
 
 sup_tax <- uniroot(function(q) supply(q) - price_tax, lower = 0, upper = 350000)$root
 height_sup_tax <- supply(q_equil_tax)
@@ -246,8 +246,10 @@ Height_L2 <- bL - price_tax2
 Base_L2 <- uniroot(function(q) demand_l(q) - price_tax2, lower = 0, upper = 350000)$root
 cs_total_low2 <- (Height_tax2*Base_L2)+(Height_L2*Base_L2*0.5)
 
-#c). PS - see 3e above ###########
-
+#c). PS
+sup_tax2 <- uniroot(function(q) supply(q) - price_tax2, lower = 0, upper = 350000)$root
+height_sup_tax2 <- supply(q_equil_tax2)
+ps_tax2 <- sup_tax2* height_sup_tax2 * 0.5
 #For Gas Tax = $5.0
 
 
@@ -265,6 +267,7 @@ c. Gas price
 d. Environmental damage from gasoline
 
 ```{r}
+#All functions for curves divided by 2, the continue with the same
 
 
 ```
