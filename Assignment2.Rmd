@@ -71,8 +71,28 @@ supply <- function(q) {supp_slope*q}
 #Marginal environmental cost curve
 mec <- function(q) {q*0 + 2} #since it's a flat line
 
+#vector to use in functions
+
+q <- 70000:110000
+
+gas_curves <- data.frame(high = demand_h(q), 
+                         low = demand_l(q), 
+                         aggregate = demand_agg(q), 
+                         sup = supply(q),
+                         quantity = q,
+                         MEC = mec(q))
+
 ###Need to graph next...calculate areas (integrate? or triangles)
 
+gas_graph <- ggplot(data = gas_curves)+
+  geom_line(aes(x = q, y = high))+
+  geom_line(aes(x = q, y = low))+
+  geom_line(aes(x = q, y = sup))+
+  geom_line(aes(x = q, y = MEC))
+
+gas_graph
+
+###############
 
 
 
