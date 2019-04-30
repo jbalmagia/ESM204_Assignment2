@@ -180,6 +180,51 @@ b. Overall welfare of “Low” income consumers
 c. Gas producers
 
 ```{r}
+#For Gas Tax = $0.5 #############
+#a). Overall CS for High demand consumers
+Height_H <- bH - price_tax
+Base_H <- uniroot(function(q) demand_h(q) - price_tax, lower = 0, upper = 350000)$root
+Height_tax <- price_tax - 5
+cs_total_high <- (Height_tax*Base_H)+(Height_H*Base_H*0.5)
+
+#b). Overall CS for Low demand consumers
+Height_L <- bL - price_tax
+Base_L <- uniroot(function(q) demand_l(q) - price_tax, lower = 0, upper = 350000)$root
+cs_total_low <- (Height_tax*Base_L)+(Height_L*Base_L*0.5)
+
+#c). PS - see 3e above
+
+
+#For Gas Tax = $2.0###########
+#New Supply Curve w/ 2 tax
+supply_tax2 <- function(q) supply(q)+2
+
+#Quantity produced and sold w/ Tax
+q_equil_tax2 <- uniroot(function(q) supply_tax2(q) - demand_agg(q), lower = 0, upper = 350000)$root
+q_equil_tax2
+
+#Price of gas w/Tax
+price_tax2 <- supply_tax2(q_equil_tax2)
+price_tax2
+
+#a). Overall CS for High demand consumers
+Height_H2 <- bH - price_tax2
+Base_H2 <- uniroot(function(q) demand_h(q) - price_tax2, lower = 0, upper = 350000)$root
+Height_tax2 <- price_tax2 - 5
+cs_total_high2 <- (Height_tax2*Base_H2)+(Height_H2*Base_H2*0.5)
+
+#b). Overall CS for Low demand consumers
+Height_L2 <- bL - price_tax2
+Base_L2 <- uniroot(function(q) demand_l(q) - price_tax2, lower = 0, upper = 350000)$root
+cs_total_low2 <- (Height_tax2*Base_L2)+(Height_L2*Base_L2*0.5)
+
+#c). PS - see 3e above ###########
+
+#For Gas Tax = $5.0
+
+
+
+
 
 ```
 
