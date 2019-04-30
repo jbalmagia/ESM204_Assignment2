@@ -247,10 +247,39 @@ Base_L2 <- uniroot(function(q) demand_l(q) - price_tax2, lower = 0, upper = 3500
 cs_total_low2 <- (Height_tax2*Base_L2)+(Height_L2*Base_L2*0.5)
 
 #c). PS
-sup_tax2 <- uniroot(function(q) supply(q) - price_tax2, lower = 0, upper = 350000)$root
+sup_tax2 <- uniroot(function(q) supply(q) - price_tax2, lower = 0, upper = 400000)$root
 height_sup_tax2 <- supply(q_equil_tax2)
 ps_tax2 <- sup_tax2* height_sup_tax2 * 0.5
-#For Gas Tax = $5.0
+
+#For Gas Tax = $5.0##########
+
+#New Supply Curve w/ 5 tax
+supply_tax5 <- function(q) supply(q)+5
+
+#Quantity produced and sold w/ Tax
+q_equil_tax5 <- uniroot(function(q) supply_tax5(q) - demand_agg(q), lower = 0, upper = 350000)$root
+q_equil_tax5
+
+#Price of gas w/Tax
+price_tax5 <- supply_tax5(q_equil_tax2)
+price_tax5
+
+#a). Overall CS for High demand consumers
+Height_H5 <- bH - price_tax5
+Base_H5 <- uniroot(function(q) demand_h(q) - price_tax5, lower = 0, upper = 350000)$root
+Height_tax5 <- price_tax5 - 5
+cs_total_high5 <- (Height_tax5*Base_H5)+(Height_H5*Base_H5*0.5)
+
+#b). Overall CS for Low demand consumers
+Height_L5 <- bL - price_tax5
+Base_L5 <- uniroot(function(q) demand_l(q) - price_tax5, lower = 0, upper = 350000)$root
+cs_total_low5 <- (Height_tax5*Base_L5)+(Height_L5*Base_L5*0.5)
+
+#c). PS
+sup_tax5 <- uniroot(function(q) supply(q) - price_tax5, lower = 0, upper = 350000)$root ##Not working, don't really get why 
+height_sup_tax5 <- supply(q_equil_tax5)
+ps_tax5 <- sup_tax5* height_sup_tax5 * 0.5
+
 
 
 
