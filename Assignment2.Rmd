@@ -82,7 +82,7 @@ gas_curves <- data.frame(high = demand_h(q),
                          quantity = q,
                          MEC = mec(q))
 
-###Need to graph next...calculate areas (integrate? or triangles)
+###Need to graph next
 
 gas_graph <- ggplot(data = gas_curves)+
   geom_line(aes(x = q, y = high))+
@@ -93,8 +93,24 @@ gas_graph <- ggplot(data = gas_curves)+
 
 gas_graph
 
-###############
+#Finding the areas of triangles (CS and PS)
 
+#Low Demand CS
+Base_Low <- uniroot(function(q) demand_l(q) - 5, lower = 0, upper = 350000)$root 
+Height_Low <- bL - 5
+cs_low <- Base_Low*Height_Low*0.5
+cs_low
+
+#High Demand CS
+Base_High <- uniroot(function(q) demand_h(q) - 5, lower = 0, upper = 350000)$root
+Height_High <- bH - 5
+cs_high <- Base_High*Base_Low*0.5
+
+#Aggregate Demand CS
+cs_agg <- cs_high + cs_low
+
+#PS
+ps <- Q_equil*5*0.5
 
 
 ```
