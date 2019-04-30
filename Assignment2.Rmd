@@ -73,7 +73,7 @@ mec <- function(q) {q*0 + 2} #since it's a flat line
 
 #vector to use in functions
 
-q <- 70000:350000
+q <- 0:350000
 
 gas_curves <- data.frame(high = demand_h(q), 
                          low = demand_l(q), 
@@ -85,16 +85,21 @@ gas_curves <- data.frame(high = demand_h(q),
 ###Need to graph next...calculate areas (integrate? or triangles)
 
 gas_graph <- ggplot(data = gas_curves)+
-  geom_line(aes(x = q, y = high))+
-  geom_line(aes(x = q, y = low))+
-  geom_line(aes(x = q, y = sup))+
-  geom_line(aes(x = q, y = MEC))+
-  geom_line(aes(x = q, y = aggregate))
+  geom_line(aes(x = q, y = high), color = "royalblue")+
+  geom_line(aes(x = q, y = low), color = "springgreen3")+
+  geom_line(aes(x = q, y = sup), color = "tomato")+
+  geom_line(aes(x = q, y = MEC), color = "mediumorchid2")+
+  geom_line(aes(x = q, y = aggregate), color = "dodgerblue") +
+  scale_y_continuous(limits= c(0,25), expand = c(0,0)) +
+  scale_x_continuous(limits= c(0,350000), expand = c(0,0)) +
+    scale_color_discrete(name = "Station, b-value",
+                     breaks=c("royalblue", "springgreen3","tomato","mediumorchid2", "dodgerblue"),
+                     labels = c("High Demand","Low Demand","Supply","Marginal Environmental Cost", "Aggregate")) +
+  ylab("Price")+
+  xlab("Quantity") +
+  theme_bw()
 
 gas_graph
-
-###############
-
 
 
 ```
