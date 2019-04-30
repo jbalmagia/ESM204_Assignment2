@@ -73,7 +73,7 @@ mec <- function(q) {q*0 + 2} #since it's a flat line
 
 #vector to use in functions
 
-q <- 70000:110000
+q <- 70000:350000
 
 gas_curves <- data.frame(high = demand_h(q), 
                          low = demand_l(q), 
@@ -88,7 +88,8 @@ gas_graph <- ggplot(data = gas_curves)+
   geom_line(aes(x = q, y = high))+
   geom_line(aes(x = q, y = low))+
   geom_line(aes(x = q, y = sup))+
-  geom_line(aes(x = q, y = MEC))
+  geom_line(aes(x = q, y = MEC))+
+  geom_line(aes(x = q, y = aggregate))
 
 gas_graph
 
