@@ -114,15 +114,23 @@ cs_low
 #High Demand CS
 Base_High <- uniroot(function(q) demand_h(q) - 5, lower = 0, upper = 350000)$root
 Height_High <- bH - 5
-cs_high <- Base_High*Base_Low*0.5
+cs_high <- Base_High*Height_High*0.5
+cs_high
 
 #Aggregate Demand CS
 cs_agg <- cs_high + cs_low
+cs_agg
 
 #PS
 ps <- Q_equil*5*0.5
 
+<<<<<<< HEAD
 >>>>>>> af9a29511c5288bd330cee49015feeaf968387d1
+=======
+#Environmental Cost 
+q_enviro <- demand_agg(2)
+enviro_cost <- q_enviro*2
+>>>>>>> 947d80eb7b71b7a64774f8ce8509af63f6f9869a
 
 ```
 
@@ -130,6 +138,8 @@ ps <- Q_equil*5*0.5
 consumers?
 
 ```{r}
+cs_diff <- cs_high - cs_low
+cs_diff #High demand consumers get $179,599.10 more in benefits than low demand consumers
 
 ```
 
