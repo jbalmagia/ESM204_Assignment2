@@ -92,7 +92,7 @@ gas_graph <- ggplot(data = gas_curves)+
   geom_line(aes(x = q, y = aggregate), color = "dodgerblue") +
   scale_y_continuous(limits= c(0,25), expand = c(0,0)) +
   scale_x_continuous(limits= c(0,350000), expand = c(0,0)) +
-    scale_color_discrete(name = "Station, b-value",
+    scale_color_discrete(name = "",
                      breaks=c("royalblue", "springgreen3","tomato","mediumorchid2", "dodgerblue"),
                      labels = c("High Demand","Low Demand","Supply","Marginal Environmental Cost", "Aggregate")) +
   ylab("Price")+
@@ -101,8 +101,6 @@ gas_graph <- ggplot(data = gas_curves)+
 
 gas_graph
 
-<<<<<<< HEAD
-=======
 #Finding the areas of triangles (CS and PS)
 
 #Low Demand CS
@@ -124,13 +122,8 @@ cs_agg
 #PS
 ps <- Q_equil*5*0.5
 
-<<<<<<< HEAD
->>>>>>> af9a29511c5288bd330cee49015feeaf968387d1
-=======
+
 #Environmental Cost 
-q_enviro <- demand_agg(2)
-enviro_cost <- q_enviro*2
->>>>>>> 947d80eb7b71b7a64774f8ce8509af63f6f9869a
 
 ```
 
