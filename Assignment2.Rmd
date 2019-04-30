@@ -282,9 +282,6 @@ ps_tax5 <- sup_tax5* height_sup_tax5 * 0.5
 
 
 
-
-
-
 ```
 
 5. Finally, assume that electric cars will gain popularity and that in the future this
@@ -296,8 +293,46 @@ c. Gas price
 d. Environmental damage from gasoline
 
 ```{r}
-#All functions for curves divided by 2, the continue with the same
+#All functions for curves divided by 2, then continue with the same ------ DOES SUPPLY CHANGE TOO? ARE FACTORING THAT IN? OR JUST DEMAND? I DID SUPPLY TOO BELOW...
 
+#Divide High Demand and Low Demand intercepts by 2
+bL_EV <- bL/2
+bH_EV <- bH/2
+
+####New variables based on EV intercepts####
+#High demand in terms of quantity (Q)
+Q_high1 <- 1/mH
+Q_high2_EV <- bH_EV/mH
+
+#Low demand in terms of quantity (Q)
+Q_low1 <- 1/mL
+Q_low2_EV <- bL_EV/mL
+
+#Aggregate in terms of Q (because its in terms of Q we're adding horizontally)
+Q_agg1 <- Q_high1 + Q_low1
+Q_agg2_EV <- Q_high2_EV + Q_low2_EV
+
+#Aggregate in terms of price (P)
+P_agg1 <- 1/Q_agg1
+P_agg2_EV <- Q_agg2_EV/Q_agg1
+
+
+#Demand Curves 
+demand_h_EV <- function(q) {(mH*q + bH_EV)/2}
+demand_l_EV <- function(q) {(mL*q + bL_EV)/2}
+demand_agg_EV<- function(q) {(P_agg1*q + P_agg2_EV)/2} 
+
+#Calculate supply curve
+Q_equil_EV <- 5*Q_agg1 - Q_agg2_EV #Get quantity at equilibrium, P = 5 (given)
+supp_slope_EV <- 5/Q_equil_EV #Get slope of supply curve, no b since intercept is 0
+
+#Supply curve 
+supply_EV <- function(q) {supp_slope_EV*q}
+
+#Marginal environmental cost curve (doesn't change)
+mec <- function(q) {q*0 + 2} #since it's a flat line
+
+#a). 
 
 ```
 
