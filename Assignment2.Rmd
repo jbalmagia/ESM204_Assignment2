@@ -168,6 +168,34 @@ height_high_tax <- bH - price_tax
 cs_high_tax <- base_high_tax * height_high_tax * 0.5
 cs_high_tax
 
+#d). Low demand CS
+base_low_tax <- uniroot(function(q) demand_l(q) - price_tax, lower = 0, upper = 350000)$root
+height_low_tax <- bL - price_tax
+cs_low_tax <- base_low_tax * height_low_tax * 0.5
+cs_low_tax
+
+#d). PS
+
+sup_tax <- uniroot(function(q) supply(q) - price_tax, lower = 0, upper = 350000)$root
+height_sup_tax <- supply(q_equil_tax)
+ps_tax <- sup_tax* height_sup_tax * 0.5
+ps_tax
+
+#f). EC
+
+env_tax <- (q_equil_tax*2)
+env_tax
+
+#g). Revenue
+
+q_diff <- (Q_equil - q_equil_tax)
+price_diff <- price_tax - 5
+rev_rec <- price_diff*q_equil_tax  ##this is the revenue generated
+
+######IGNORE THESE BUT THEY MAY COME IN HANDY LATER
+
+#rev_tri <- q_diff*price_diff * 0.5
+#total_tax_rev <- rev_tri+rev_rec
 ```
 
 4. Now, assume that all revenue from a tax will be used for infrastructure repairs,
