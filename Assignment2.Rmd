@@ -73,7 +73,7 @@ mec <- function(q) {q*0 + 2} #since it's a flat line
 
 #vector to use in functions
 
-q <- 70000:350000
+q <- 0:350000
 
 gas_curves <- data.frame(high = demand_h(q), 
                          low = demand_l(q), 
@@ -104,14 +104,19 @@ cs_low
 #High Demand CS
 Base_High <- uniroot(function(q) demand_h(q) - 5, lower = 0, upper = 350000)$root
 Height_High <- bH - 5
-cs_high <- Base_High*Base_Low*0.5
+cs_high <- Base_High*Height_High*0.5
+cs_high
 
 #Aggregate Demand CS
 cs_agg <- cs_high + cs_low
+cs_agg
 
 #PS
 ps <- Q_equil*5*0.5
 
+#Environmental Cost 
+q_enviro <- demand_agg(2)
+enviro_cost <- q_enviro*2
 
 ```
 
@@ -119,6 +124,8 @@ ps <- Q_equil*5*0.5
 consumers?
 
 ```{r}
+cs_diff <- cs_high - cs_low
+cs_diff #High demand consumers get $179,599.10 more in benefits than low demand consumers
 
 ```
 
