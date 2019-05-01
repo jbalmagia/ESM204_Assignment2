@@ -176,7 +176,7 @@ cs_low_tax
 
 #e). PS
 
-sup_tax <- uniroot(function(q) supply(q) - price_tax, lower = 0, upper = 350000)$root
+sup_tax <- uniroot(function(q) supply_tax(q) - price_tax, lower = 0, upper = 350000)$root
 height_sup_tax <- supply(q_equil_tax)
 ps_tax <- sup_tax* height_sup_tax * 0.5
 ps_tax
@@ -247,7 +247,7 @@ Base_L2 <- uniroot(function(q) demand_l(q) - price_tax2, lower = 0, upper = 3500
 cs_total_low2 <- (Height_tax2*Base_L2)+(Height_L2*Base_L2*0.5)
 
 #c). PS
-sup_tax2 <- uniroot(function(q) supply(q) - price_tax2, lower = 0, upper = 400000)$root
+sup_tax2 <- uniroot(function(q) supply_tax2(q) - price_tax2, lower = 0, upper = 350000)$root
 height_sup_tax2 <- supply(q_equil_tax2)
 ps_tax2 <- sup_tax2* height_sup_tax2 * 0.5
 
@@ -261,7 +261,7 @@ q_equil_tax5 <- uniroot(function(q) supply_tax5(q) - demand_agg(q), lower = 0, u
 q_equil_tax5
 
 #Price of gas w/Tax
-price_tax5 <- supply_tax5(q_equil_tax2)
+price_tax5 <- supply_tax5(q_equil_tax5)
 price_tax5
 
 #a). Overall CS for High demand consumers
@@ -276,7 +276,7 @@ Base_L5 <- uniroot(function(q) demand_l(q) - price_tax5, lower = 0, upper = 3500
 cs_total_low5 <- (Height_tax5*Base_L5)+(Height_L5*Base_L5*0.5)
 
 #c). PS
-sup_tax5 <- uniroot(function(q) supply(q) - price_tax5, lower = 0, upper = 350000)$root ##Not working, don't really get why 
+sup_tax5 <- uniroot(function(q) supply_tax5(q) - price_tax5, lower = 0, upper = 350000)$root
 height_sup_tax5 <- supply(q_equil_tax5)
 ps_tax5 <- sup_tax5* height_sup_tax5 * 0.5
 
@@ -293,48 +293,36 @@ c. Gas price
 d. Environmental damage from gasoline
 
 ```{r}
-#All functions for curves divided by 2, then continue with the same ------ DOES SUPPLY CHANGE TOO? ARE FACTORING THAT IN? OR JUST DEMAND? I DID SUPPLY TOO BELOW...
-
-#Divide High Demand and Low Demand intercepts by 2
-bL_EV <- bL/2
-bH_EV <- bH/2
-
-####New variables based on EV intercepts####
-#High demand in terms of quantity (Q)
-Q_high1 <- 1/mH
-Q_high2_EV <- bH_EV/mH
-
-#Low demand in terms of quantity (Q)
-Q_low1 <- 1/mL
-Q_low2_EV <- bL_EV/mL
-
-#Aggregate in terms of Q (because its in terms of Q we're adding horizontally)
-Q_agg1 <- Q_high1 + Q_low1
-Q_agg2_EV <- Q_high2_EV + Q_low2_EV
-
-#Aggregate in terms of price (P)
-P_agg1 <- 1/Q_agg1
-P_agg2_EV <- Q_agg2_EV/Q_agg1
-
+#All functions for curves divided by 2, then continue with the same 
 
 #Demand Curves 
-demand_h_EV <- function(q) {(mH*q + bH_EV)/2}
-demand_l_EV <- function(q) {(mL*q + bL_EV)/2}
-demand_agg_EV<- function(q) {(P_agg1*q + P_agg2_EV)/2} 
+demand_h_EV <- function(q) {mH*q + (bH/2)}
+demand_l_EV <- function(q) {mL*q + (bL/2)}
+demand_agg_EV<- function(q) {P_agg1*q + (P_agg2/2)} 
 
-#Calculate supply curve
-Q_equil_EV <- 5*Q_agg1 - Q_agg2_EV #Get quantity at equilibrium, P = 5 (given)
-supp_slope_EV <- 5/Q_equil_EV #Get slope of supply curve, no b since intercept is 0
+#a). Quantity at equilibrium for High Demand 
+q_equil_EV_H <- uniroot(function(q) supply(q) - demand_h_EV(q), lower = 0, upper = 350000)$root
 
-#Supply curve 
-supply_EV <- function(q) {supp_slope_EV*q}
+#b.) Quantity at equilibrium for Low Demand
+q_equil_EV_L <- uniroot(function(q) supply(q) - demand_l_EV(q), lower = 0, upper = 350000)$root
 
-#Marginal environmental cost curve (doesn't change)
-mec <- function(q) {q*0 + 2} #since it's a flat line
+#c.) Gas price
+q_equil_EV_agg <- uniroot(function(q) supply(q) - demand_agg_EV(q), lower = 0, upper = 350000)$root
 
-#a). 
+price_EV <- supply(q_equil_EV_agg)
+
+#d.)Total Environmental Damage
+enviro_EV <- q_equil_EV_agg*2
+
 
 ```
 
 6. Using these numbers, which has a bigger impact on environmental quality, a
 $2.00/gal. gas tax or the invention of electric cars? Provide your evidence.
+
+```{r}
+#Environmental cost of $2.00 tax 
+enviro_2 <- q_equil_tax2*2
+
+```
+
