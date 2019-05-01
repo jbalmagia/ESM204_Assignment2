@@ -115,7 +115,7 @@ Base_High <- uniroot(function(q) demand_h(q) - 5, lower = 0, upper = 350000)$roo
 Height_High <- bH - 5
 cs_high <- Base_High*Height_High*0.5
 cs_high
-Base_High
+
 
 #Aggregate Demand CS
 cs_agg <- cs_high + cs_low
@@ -126,8 +126,8 @@ ps <- Q_equil*5*0.5
 
 
 #Environmental Cost 
-q_enviro <- demand_agg(2)
-enviro_cost <- q_enviro*2
+
+enviro_cost <-Q_equil*2
 
 
 ```
@@ -178,7 +178,7 @@ cs_low_tax
 
 sup_tax <- uniroot(function(q) supply_tax(q) - price_tax, lower = 0, upper = 350000)$root
 height_sup_tax <- supply(q_equil_tax)
-ps_tax <- sup_tax* height_sup_tax * 0.5
+ps_tax <- sup_tax* 5 * 0.5
 ps_tax
 
 #f). EC
@@ -213,12 +213,12 @@ c. Gas producers
 Height_H <- bH - price_tax
 Base_H <- uniroot(function(q) demand_h(q) - price_tax, lower = 0, upper = 350000)$root
 Height_tax <- price_tax - 5
-cs_total_high <- (Height_tax*Base_H)+(Height_H*Base_H*0.5)
+cs_total_high <- (0.5*Base_H)+(Height_H*Base_H*0.5)
 
 #b). Overall CS for Low demand consumers
 Height_L <- bL - price_tax
 Base_L <- uniroot(function(q) demand_l(q) - price_tax, lower = 0, upper = 350000)$root
-cs_total_low <- (Height_tax*Base_L)+(Height_L*Base_L*0.5)
+cs_total_low <- (0.5*Base_L)+(Height_L*Base_L*0.5)-(env_tax)
 
 #c). PS - see 3e above
 
@@ -239,17 +239,17 @@ price_tax2
 Height_H2 <- bH - price_tax2
 Base_H2 <- uniroot(function(q) demand_h(q) - price_tax2, lower = 0, upper = 350000)$root
 Height_tax2 <- price_tax2 - 5
-cs_total_high2 <- (Height_tax2*Base_H2)+(Height_H2*Base_H2*0.5)
+cs_total_high2 <- (2*Base_H2)+(Height_H2*Base_H2*0.5)
 
 #b). Overall CS for Low demand consumers
 Height_L2 <- bL - price_tax2
 Base_L2 <- uniroot(function(q) demand_l(q) - price_tax2, lower = 0, upper = 350000)$root
-cs_total_low2 <- (Height_tax2*Base_L2)+(Height_L2*Base_L2*0.5)
+cs_total_low2 <- (2*Base_L2)+(Height_L2*Base_L2*0.5) - (q_equil_tax2*2)
 
 #c). PS
 sup_tax2 <- uniroot(function(q) supply_tax2(q) - price_tax2, lower = 0, upper = 350000)$root
 height_sup_tax2 <- supply(q_equil_tax2)
-ps_tax2 <- sup_tax2* height_sup_tax2 * 0.5
+ps_tax2 <- sup_tax2* 5 * 0.5
 
 #For Gas Tax = $5.0##########
 
@@ -268,17 +268,17 @@ price_tax5
 Height_H5 <- bH - price_tax5
 Base_H5 <- uniroot(function(q) demand_h(q) - price_tax5, lower = 0, upper = 350000)$root
 Height_tax5 <- price_tax5 - 5
-cs_total_high5 <- (Height_tax5*Base_H5)+(Height_H5*Base_H5*0.5)
+cs_total_high5 <- (5*Base_H5)+(Height_H5*Base_H5*0.5)
 
 #b). Overall CS for Low demand consumers
 Height_L5 <- bL - price_tax5
 Base_L5 <- uniroot(function(q) demand_l(q) - price_tax5, lower = 0, upper = 350000)$root
-cs_total_low5 <- (Height_tax5*Base_L5)+(Height_L5*Base_L5*0.5)
+cs_total_low5 <- (5*Base_L5)+(Height_L5*Base_L5*0.5) - (q_equil_tax5*2)
 
 #c). PS
 sup_tax5 <- uniroot(function(q) supply_tax5(q) - price_tax5, lower = 0, upper = 350000)$root
 height_sup_tax5 <- supply(q_equil_tax5)
-ps_tax5 <- sup_tax5* height_sup_tax5 * 0.5
+ps_tax5 <- sup_tax5* 5 * 0.5
 
 
 
